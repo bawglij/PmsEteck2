@@ -1,0 +1,26 @@
+﻿@model PmsEteck.Data.Models.Contact
+
+@{
+    ViewBag.Title = "Contact verwijderen";
+    string linkBack = new RedirectResult(Url.Action("Details", "Projects", new { id = Model.iProjectKey }) + "#overigeContacten").Url.ToString();
+}
+
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<div class="alert alert-danger">
+    <p>
+        Weet je zeker dat je dit contact definitief wilt verwijderen?
+    </p>
+    <p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Verwijderen" class="btn btn-outline-danger" />
+        }
+    </p>
+</div>
+
+<a href="@linkBack" class="btn btn-default">
+    <span class="glyphicon glyphicon-arrow-left"></span>
+    Annuleren
+</a>

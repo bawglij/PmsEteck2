@@ -59,6 +59,7 @@ namespace WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [System.Obsolete]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -78,7 +79,7 @@ namespace WebApp
 
             app.UseRouting(routes =>
             {
-                routes.MapApplication();
+                //routes.MapApplication();
                 routes.MapControllerRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

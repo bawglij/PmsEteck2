@@ -1,0 +1,92 @@
+﻿@model X.PagedList.PagedList<PmsEteck.ViewModels.EnergySupplierIndexViewModel>
+@using X.PagedList.Mvc.Core
+
+<div id="energySuppliersList" class="indexlist" data-pmseteck-target="#energySuppliersList">
+    <table class="table table-hover">
+        <thead class="tableheader">
+            <tr>
+                <th>
+                    @Html.ActionLink("Sleutel", "Index", new { sorting = Context.Request.Query["sorting"] == "KeyAsc" ? "KeyDesc" : "KeyAsc" })
+                    @if (Context.Request.Query["sorting"] == "KeyAsc")
+                    {<span class="fa fa-chevron-down"></span>}
+                    else if (Context.Request.Query["sorting"] == "KeyDesc")
+                    { <span class="fa fa-chevron-up"></span>}
+                </th>
+                <th>
+                    @Html.ActionLink("Naam", "Index", new { sorting = Context.Request.Query["sorting"] == "NameAsc" ? "NameDesc" : "NameAsc" })
+                    @if (Context.Request.Query["sorting"] == "NameAsc")
+                    {<span class="fa fa-chevron-down"></span>}
+                    else if (Context.Request.Query["sorting"] == "NameDesc")
+                    { <span class="fa fa-chevron-up"></span>}
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Actief", "Index", new { sorting = Context.Request.Query["sorting"] == "ActiveAsc" ? "ActiveDesc" : "ActiveAsc" })
+                    @if (Context.Request.Query["sorting"] == "ActiveAsc")
+                    {<span class="fa fa-chevron-down"></span>}
+                    else if (Context.Request.Query["sorting"] == "ActiveDesc")
+                    { <span class="fa fa-chevron-up"></span>}
+                </th>
+                <th class="text-center">
+                    @Html.ActionLink("Aantal meters", "Index", new { sorting = Context.Request.Query["sorting"] == "CountAsc" ? "CountDesc" : "CountAsc" })
+                    @if (Context.Request.Query["sorting"] == "CountAsc")
+                    {<span class="fa fa-chevron-down"></span>}
+                    else if (Context.Request.Query["sorting"] == "CountDesc")
+                    { <span class="fa fa-chevron-up"></span>}
+                </th>
+                @if (User.IsInRole("EnergySuppliersEditor"))
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var energySupplier in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => energySupplier.iEnergySupplierID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => energySupplier.sName)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(model => energySupplier.bActive)
+                    </td>
+                    <td class="text-center">
+                        @if (User.IsInRole("ConsumptionMetersViewer"))
+                        {
+                            <a href="@Url.Action("ConsumptionMeters", "EnergySuppliers", new { id = energySupplier.iEnergySupplierID })">@Html.DisplayFor(model => energySupplier.iMeterCount)</a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => energySupplier.iMeterCount)
+                        }
+                    </td>
+                    @if (User.IsInRole("EnergySuppliersEditor"))
+                    {
+                        <td class="text-right">
+                            @using (Html.BeginForm("Lock", "EnergySuppliers", new { id = energySupplier.iEnergySupplierID }, FormMethod.Post))
+                            {
+                                <a href="@Url.Action("Edit", new { id = energySupplier.iEnergySupplierID })" class="btn btn-xs btn-warning">
+                                    <span class="fa fa-pencil"></span>
+                                </a>
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-xs btn-@(energySupplier.bActive ? "danger" : "success")">
+                                    <span class="fa fa-@(energySupplier.bActive ? "" : "un")lock"></span>
+                                    @(energySupplier.bActive ? "vergrendel" : "ontgrendel")
+                                </button>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Model.FirstItemOnPage - @Model.LastItemOnPage van @Model.TotalItemCount
+    @if (Model.PageCount > 1)
+    {
+        <div class="pagedList">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sorting = Context.Request.Query["sorting"] }))//, new PagedListRenderOptions { LinkToNextPageFormat = "<span class='glyphicon glyphicon-triangle-right'></span>", LinkToPreviousPageFormat = "<span class='glyphicon glyphicon-triangle-left'></span>", LinkToFirstPageFormat = "<span class='glyphicon glyphicon-fast-backward'></span>", LinkToLastPageFormat = "<span class='glyphicon glyphicon-fast-forward'></span>", MaximumPageNumbersToDisplay = 5 })
+        </div>
+    }
+</div>

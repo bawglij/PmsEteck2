@@ -1,0 +1,89 @@
+﻿@model PmsEteck.ViewModels.ContactCreateViewModel
+
+@{
+    ViewBag.Title = "Nieuw Contact";
+    string linkBack = new RedirectResult(Url.Action("Details", "Projects", new { id = Model.iProjectKey }) + "#overigeContacten").Url.ToString();
+}
+
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<a href="@linkBack" class="btn btn-default" style="margin-bottom:20px;">
+    <span class="glyphicon glyphicon-arrow-left"></span>
+    Projectdetails
+</a>
+
+@using (Html.BeginForm("Create", "Contacts", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.iProjectKey)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sOrganisation, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sOrganisation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sOrganisation, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.iContactTypeKey, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.iContactTypeKey, Model.ContactTypes, htmlAttributes: new { @class = "form-control", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(model => model.iContactTypeKey, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sTitle, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sTitle, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sContactName, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sContactName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sContactName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sEmail, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sEmail, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sEmail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sTelephone, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sTelephone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sTelephone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.sDescription, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button type="submit" class="btn btn-block btn-primary">
+                <span class="glyphicon glyphicon-save"></span>
+                Opslaan
+            </button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("~/bundles/jqueryval");}
+}
