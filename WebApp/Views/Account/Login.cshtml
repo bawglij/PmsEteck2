@@ -5,46 +5,44 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-    <section id="loginForm">
-        <h2>Project Management Systeem</h2>
-        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-        {
-            <h4>@ViewBag.Title</h4>
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "sr-only" })
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-fw fa-user"></i>
-                    </div>
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autofocus = "autofocus" })
+<section id="loginForm">
+    <h2>Project Management Systeem</h2>
+    <form asp-action="Login" asp-controller="Account" method="post" asp-route-returnurl="@ViewBag.ReturnUrl" asp-antiforgery="true">
+        <h4>@ViewBag.Title</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Email" class="sr-only"></label>
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-fw fa-user"></i>
                 </div>
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <input type="text" asp-for="Email" class="form-control" autofocus="autofocus" />
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                </div>
-                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="sr-only"></label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+                <input asp-for="Password" type="password" class="form-control" />
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.RememberMe) @Html.DisplayNameFor(m => m.RememberMe)
-                    </label>
-                </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" asp-for="RememberMe" /> <label asp-for="RememberMe"></label>
+                </label>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-block btn-primary">Inloggen</button>
-            </div>
-            <div class="row">
-                <p>
-                    @Html.ActionLink("Wachtwoord vergeten", "ForgotPassword")
-                </p>
-            </div>
-        }
-        </section>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-block btn-primary">Inloggen</button>
+        </div>
+        <div class="row">
+            <p>
+                <a asp-controller="Account" asp-action="ForgotPassword">Wachtwoord vergeten</a>
+            </p>
+        </div>
+    </form>
+</section>
 

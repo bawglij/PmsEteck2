@@ -34,7 +34,6 @@ namespace PmsEteck.Controllers
             _context = context;
         }
 
-        //
         // GET: /Manage/Index
         public async Task<IActionResult> Index(ManageMessageId? message)
         {
@@ -47,8 +46,9 @@ namespace PmsEteck.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.ChangeProfileSuccess ? "Je profiel is bijgewerkt."
                 : "";
-            var userId = User.Identity.GetUserID();
-            var user = await _userManager.FindByIdAsync(userId);
+
+            var user = await _userManager.GetUserAsync(User);
+
             var model = new IndexViewModel
             {
                 HasPassword = await HasPasswordAsync(),
@@ -61,7 +61,6 @@ namespace PmsEteck.Controllers
             return View(model);
         }
 
-        //
         // GET: /Manage/SetPassword
         [AllowAnonymous]
         public ActionResult SetPassword(string userId)
@@ -85,11 +84,11 @@ namespace PmsEteck.Controllers
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+        #region "helpers"
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -98,7 +97,6 @@ namespace PmsEteck.Controllers
             }
         }
 
-        #region
         public enum ManageMessageId
         {
             AddPhoneSuccess,

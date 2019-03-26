@@ -278,7 +278,7 @@ namespace WebApp.Controllers
                 Email = user.Email,
                 Name = user.FullName,
                 EmailConfirmed = user.EmailConfirmed,
-                UserGroups = user.UserGroups.Select(s => s.UserGroup.Name).ToArray(),
+                //UserGroups = user.UserGroups.Select(s => s.UserGroup.Name).ToArray(),
                 RoleGroups = await _userManager.GetRolesAsync(user),
                 UserLocked = user.IsLocked.HasValue && user.IsLocked.Value
             };
