@@ -1,0 +1,50 @@
+﻿
+@model WebApp.ViewModels.AccountViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Inloggen";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+    <section id="loginForm">
+        <h2>Project Management Systeem</h2>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            <h4>@ViewBag.Title</h4>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "sr-only" })
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-fw fa-user"></i>
+                    </div>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autofocus = "autofocus" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "sr-only" })
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberMe) @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary">Inloggen</button>
+            </div>
+            <div class="row">
+                <p>
+                    @Html.ActionLink("Wachtwoord vergeten", "ForgotPassword")
+                </p>
+            </div>
+        }
+        </section>
+

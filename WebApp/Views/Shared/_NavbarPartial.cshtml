@@ -1,0 +1,269 @@
+﻿<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a href="/" class="navbar-brand">
+        <img src="~/Images/Eteck_nieuw.png" />
+    </a>
+</div>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Netbeheerders", "Index", "Operators")</li>
+        @if (User.IsInRole("ServiceTicketsViewer") || User.IsInRole("ServiceInvoiceLinesViewer"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Service & Onderhoud
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole("ServiceTicketsViewer"))
+                    {
+                        <li>@Html.ActionLink("Servicemeldingen", "Index", "ServiceTickets")</li>
+                    }
+                    @if (User.IsInRole("ServiceInvoiceLinesViewer"))
+                    {
+                        <li>@Html.ActionLink("Factuurregels", "Index", "ServiceInvoiceLines")</li>
+                    }
+                </ul>
+            </li>
+
+        }
+        @if (User.IsInRole("OpportunitiesViewer"))
+        {
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Pipeline
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Pipeline", "Index", "Opportunities")</li>
+                    @if (User.IsInRole("InstallationPartnersViewer"))
+                    {
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("Intallatiepartners", "Index", "InstallationPartners")</li>
+                    }
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("BudgetsViewer") || User.IsInRole("DashboardFinancialManagementViewer"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Financieel management
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole("DashboardFinancialManagementViewer"))
+                    {
+                        <li>@Html.ActionLink("Overzicht", "FinancialManagement", "Dashboard")</li>
+                        <li role="separator" class="divider"></li>
+                    }
+                    @if (User.IsInRole("BudgetsViewer"))
+                    {
+                        <li>@Html.ActionLink("Begrotingen", "Index", "Budgets")</li>
+                    }
+                </ul>
+            </li>
+
+        }
+        @if (User.IsInRole("CustomersViewer"))
+        {
+            <li>@Html.ActionLink("Entiteiten", "Index", "Customers")</li>
+        }
+        @if (User.IsInRole("MaintenanceContactsViewer") && User.IsInRole("ProjectsViewer"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Project management
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Projecten", "Index", "Projects")</li>
+                    <li role="separator" class="divider"></li>
+                    <li>@Html.ActionLink("Onderhoudspartijen", "Index", "MaintenanceContacts")</li>
+                </ul>
+            </li>
+        }
+        else if (User.IsInRole("ProjectsViewer"))
+        {
+            <li>@Html.ActionLink("Projecten", "Index", "Projects")</li>
+        }
+        @if (User.IsInRole("AddressesViewer"))
+        {
+            <li>@Html.ActionLink("Aansluitingen", "Index", "Addresses")</li>
+        }
+        @if (User.IsInRole("ConsumptionMetersViewer") || User.IsInRole("ReportViewer"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Energetisch management
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole("ReportViewer"))
+                    {
+                        <li>@Html.ActionLink("EM Rapportage", "IndexAsync", "Report")</li>
+                    }
+                    @if (User.IsInRole("ServiceViewer"))
+                    {
+                        <li>@Html.ActionLink("Services", "Index", "Service")</li>
+                    }
+                    @if (User.IsInRole("ConsumptionMeterSuppliersViewer"))
+                    {
+                        <li>@Html.ActionLink("Leveranciers", "Index", "ConsumptionMeterSuppliers")</li>
+                    }
+                    @if (User.IsInRole("DefaultsViewer"))
+                    {
+                        <li>@Html.ActionLink("Energiestandaarden", "Index", "Defaults")</li>
+                    }
+                    <li role="separator" class="divider"></li>
+                    @if (User.IsInRole("ConsumptionMetersViewer"))
+                    {
+                        <li>@Html.ActionLink("Meters", "Index", "ConsumptionMeters")</li>
+                    }
+                    @if (User.IsInRole("MeterChangeLogsViewer"))
+                    {
+                        <li>@Html.ActionLink("Meterwissels", "Index", "MeterChangeLogs")</li>
+                    }
+                    @if (User.IsInRole("CountersViewer"))
+                    {
+                        <li>@Html.ActionLink("Telwerken", "Index", "Counters")</li>
+                    }
+                    @if (User.IsInRole("RateCardsViewer"))
+                    {
+                        <li>@Html.ActionLink("Tariefkaarten", "Index", "RateCards")</li>
+                    }
+                    @if (User.IsInRole("RateCardScalesViewer"))
+                    {
+                        <li>@Html.ActionLink("Tariefkaartstaffels", "Index", "RateCardScales")</li>
+                    }
+                    <li role="separator" class="divider"></li>
+                    @if (User.IsInRole("EnergySuppliersViewer"))
+                    {
+                        <li>@Html.ActionLink("Energieleveranciers", "Index", "EnergySuppliers")</li>
+                    }
+                    @if (User.IsInRole("OperatorsViewer"))
+                    {
+                        <li>@Html.ActionLink("Netbeheerders", "Index", "Operators")</li>
+                    }
+                    @if (User.IsInRole("MeasuringOfficersViewer"))
+                    {
+                        <li>@Html.ActionLink("Meetverantwoordelijke", "Index", "MeasuringOfficers")</li>
+                    }
+                    <li role="separator" class="divider"></li>
+                    @if (User.IsInRole("ConnectionTypesViewer"))
+                    {
+                        <li>@Html.ActionLink("Aansluittypen", "Index", "ConnectionTypes")</li>
+                    }
+                    @if (User.IsInRole("ConsumptionMeterTypesViewer"))
+                    {
+                        <li>@Html.ActionLink("Metertypen", "Index", "ConsumptionMeterTypes")</li>
+                    }
+                    @if (User.IsInRole("CounterTypesViewer"))
+                    {
+                        <li>@Html.ActionLink("Telwerktypen", "Index", "CounterTypes")</li>
+                    }
+                    @if (User.IsInRole("UnitsViewer"))
+                    {
+                        <li>@Html.ActionLink("Eenheden", "Index", "Units")</li>
+                    }
+                    @if (User.IsInRole("CounterTypesViewer"))
+                    {
+                        <li>@Html.ActionLink("Ophaalfrequenties", "Index", "Frequencies")</li>
+                    }
+
+                    @if (User.IsInRole("ReportValidationSetsViewer"))
+                    {
+                        <li>@Html.ActionLink("Validatieprofielen", "Index", "ReportValidationSets")</li>
+                    }
+                    @if (User.IsInRole("SeasonalPatternsViewer"))
+                    {
+                        <li>@Html.ActionLink("Seizoenspatronen", "Index", "SeasonalPatterns")</li>
+
+                    }
+                    @if (User.IsInRole("CountersViewer"))
+                    {
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("Ongevalideerde verbruiken", "UnvalidatedConsumptions", "Consumptions")</li>
+                    }
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("DebtorsViewer") || User.IsInRole("OccupantsViewer") || User.IsInRole("InvoiceBatchesViewer") || User.IsInRole("TicketReviewsViewer"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Klantzaken
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole("DashboardCustomerManagementViewer"))
+                    {
+                        <li>@Html.ActionLink("Dashboard", "CustomerManagement", "Dashboard")</li>
+                    }
+                    @if (User.IsInRole("TicketReviewsViewer"))
+                    {
+                        <li>@Html.ActionLink("Reviews", "Index", "TicketReviews")</li>
+                    }
+                    <li role="separator" class="divider"></li>
+                    @if (User.IsInRole("DebtorsViewer"))
+                    {
+                        <li>@Html.ActionLink("Debiteuren", "Index", "Debtors")</li>
+                    }
+                    @if (User.IsInRole("OccupantsViewer"))
+                    {
+                        <li>@Html.ActionLink("Bewoners", "Index", "Occupants")</li>
+                    }
+                    @if (User.IsInRole("InvoiceBatchesViewer"))
+                    {
+                        <li>@Html.ActionLink("Facturatie", "Index", "InvoiceBatches")</li>
+                        <li>@Html.ActionLink("Facturatie (nieuw)", "IndexNew", "InvoiceBatches")</li>
+                    }
+                    @if (User.IsInRole("TicketsViewer"))
+                    {
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("Meldingen", "Index", "Tickets")</li>
+                        <li>@Html.ActionLink("Nieuwe meldingen", "Queue", "Tickets")</li>
+                    }
+                    @if (User.IsInRole("UnvalidatedConsumptionsViewer"))
+                    {
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("Ongevalideerde standen", "Index", "UnvalidatedConsumptions")</li>
+                    }
+                </ul>
+            </li>
+        }
+        @if (User.IsInRole("UserManager"))
+        {
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    App beheer
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole("UserManager"))
+                    {
+                        <li>@Html.ActionLink("Gebruikersbeheer", "Index", "Admin")</li>
+                    }
+                    @if (User.IsInRole("UserGroupsViewer"))
+                    {
+                        <li>@Html.ActionLink("Gebruikersgroepen", "Index", "UserGroups")</li>
+                    }
+                    @if (User.IsInRole("RoleGroupsViewer"))
+                    {
+                        <li>@Html.ActionLink("Rolgroepen", "Index", "RoleGroups")</li>
+                    }
+                    @if (User.IsInRole("RolesViewer"))
+                    {
+                        <li>@Html.ActionLink("Rollen", "Index", "Roles")</li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+    @await Html.PartialAsync("_LoginPartial")
+</div>

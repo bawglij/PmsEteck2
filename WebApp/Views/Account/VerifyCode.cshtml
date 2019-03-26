@@ -1,0 +1,39 @@
+﻿@model WebApp.ViewModels.AccountViewModels.VerifyCodeViewModel
+@{
+    ViewBag.Title = "Verifieer code";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-6 col-md-offset-3 col-md-4">
+        <h2>Project Management Systeem</h2>
+        @using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post))
+        {
+            <h4>@ViewBag.Title</h4>
+            <hr />
+            @Html.AntiForgeryToken()
+            @Html.Hidden("provider", @Model.Provider)
+            @Html.Hidden("rememberMe", @Model.RememberMe)
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Code, new { @class = "sr-only" })
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-fw fa-unlock-alt"></i>
+                    </div>
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberBrowser) @Html.DisplayNameFor(m => m.RememberBrowser)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary">Controleren</button>
+            </div>
+        }
+    </div>
+</div>

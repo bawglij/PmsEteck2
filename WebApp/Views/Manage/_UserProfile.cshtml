@@ -1,0 +1,29 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            Profielgegevens
+        </h4>
+    </div>
+    <img src="~/Images/Background-768.jpeg" class="img-responsive" />
+
+    <div class="panel-body">
+        <b>
+            @User.Identity.Name
+        </b> <br />
+        <i class="fa fa-fw fa-envelope-o"></i> @User.Identity.Name<i class="fa fa-fw fa-check-circle text-success"></i>
+    </div>
+    <div class="list-group">
+        <a asp-action="Index" class="list-group-item">
+            <i class="fa fa-fw fa-cog"></i>
+            Overzicht
+        </a>
+        <a asp-action="ChangeProfile" class="list-group-item">
+            <i class="fa fa-fw fa-user"></i>
+            Profiel wijzigen
+        </a>
+        <a asp-action="ChangePassword" class="list-group-item">
+            <i class="fa fa-fw fa-key"></i>
+            Wachtwoord wijzigen
+        </a>
+    </div>
+</div>

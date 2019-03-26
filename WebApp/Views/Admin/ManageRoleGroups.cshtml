@@ -1,0 +1,36 @@
+﻿@model WebApp.ViewModels.AccountRoleGroupViewModel
+@{
+    ViewBag.Title = "Beheer rolgroepen";
+}
+
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<form>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedGroups, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                <select asp-for="SelectedGroups" asp-items="Model.RoleGroups"  class="form-control selectpicker" data-live-search="true">
+
+                </select>
+                @Html.ValidationMessageFor(model => model.SelectedGroups, string.Empty, htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <a href="@Url.Action("Details", new { id = ViewContext.RouteData.Values["id"] })" class="btn btn-default">
+                    <i class="fa fa-arrow-left"></i>
+                    Vorige
+                </a>
+            </div>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    Opslaan
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

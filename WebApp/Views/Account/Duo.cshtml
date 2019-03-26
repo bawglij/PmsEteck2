@@ -1,0 +1,12 @@
+﻿@model WebApp.ViewModels.AccountViewModels.DuoWebViewModel
+@{
+    ViewBag.Title = "Duo Web";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<h2>Project Management Systeem</h2>
+<h4>@ViewBag.Title</h4>
+<script src="~/Scripts/Duo-Web-v2.js"></script>
+<div class="embed-responsive embed-responsive-4by3">
+    <iframe id="duo_iframe" data-host="@Model.Host" data-sig-request="@Model.Request" data-post-action="" class="embed-responsive-item"></iframe>
+</div>
+

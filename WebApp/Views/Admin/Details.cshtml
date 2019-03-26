@@ -1,0 +1,101 @@
+﻿@model WebApp.ViewModels.AccountDetailsViewModel
+
+@{
+    ViewBag.Title = "Gebruikersdetails";
+}
+
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<p>
+    <a asp-action ="Index" class="btn btn-default">
+        <i class="fa fa-arrow-left"></i>
+        Vorige
+    </a>
+</p>
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Profielgegevens
+                </h4>
+            </div>
+            <img src="~/Images/Background-768.jpeg" class="img-responsive" />
+
+            <div class="panel-body">
+                <b>
+                    @Html.DisplayFor(model => model.Name)
+                </b> <br />
+                <i class="fa fa-fw fa-envelope-o"></i> @Html.DisplayFor(model => model.Email)
+                @if (Model.EmailConfirmed)
+                {
+                    <i class="fa fa-check-circle text-success"></i>
+                }
+                <p>
+                    @if (Model.UserLocked)
+                    {
+                        <span class="text-danger">Deze gebruiker is geblokkeerd.</span>
+                    }
+                    @using (Html.BeginForm("ManageAccess", "Admin", new { id = Model.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (Model.UserLocked)
+                        {
+                            <button type="submit" class="btn btn-sm btn-success">
+                                <i class="fa fa-unlock"></i>
+                                Deblokkeren
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                <i class="fa fa-lock"></i>
+                                Blokkeren
+                            </button>
+                        }
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    @Html.DisplayNameFor(model => model.UserGroups)
+                    @if (User.IsInRole("UserManager"))
+                    {
+                        <span class="pull-right">
+                            <a href="@Url.Action("ManageUserGroups", new { id = Model.Id })" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </span>
+                    }
+                </h4>
+            </div>
+            <div class="panel-body">
+                <!--string.Join(", ", Model.UserGroups)-->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    @Html.DisplayNameFor(model => model.RoleGroups)
+                    @if (User.IsInRole("UserManager"))
+                    {
+                        <span class="pull-right">
+                            <a href="@Url.Action("ManageRoleGroups", new { id = Model.Id })" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </span>
+                    }
+                </h4>
+            </div>
+            <div class="panel-body">
+                @string.Join(", ", Model.RoleGroups)
+            </div>
+        </div>
+    </div>
+</div>

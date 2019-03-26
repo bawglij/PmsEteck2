@@ -1,0 +1,35 @@
+[
+  {
+    "outputFileName": "Content/bootstrap-theme2.css",
+    "inputFiles": [
+      "Content/bootstrap-theme2.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Scripts/bundle.js",
+    "inputFiles": [
+      "wwwroot/Scripts/jquery.validate.js",
+      "wwwroot/Scripts/cldr.js",
+      "wwwroot/Scripts/globalize.js",
+      "wwwroot/Scripts/globalize/currency.js",
+      "wwwroot/Scripts/globalize/date.js",
+      "wwwroot/Scripts/globalize/message.js",
+      "wwwroot/Scripts/globalize/number.js",
+      "wwwroot/Scripts/globalize/plural.js",
+      "wwwroot/Scripts/globalize/relative-time.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Scripts/BootstrapBundle.js",
+    "inputFiles": [
+      "wwwroot/Scripts/bootstrap.js",
+      "wwwroot/Scripts/bootstrap-datepicker.js",
+      "wwwroot/Scripts/locales/bootstrap-datepicker.nl.min.js",
+      "wwwroot/Scripts/bootstrap-select.js",
+      "wwwroot/Scripts/bootstrap-tagsinput.js",
+      "wwwroot/Scripts/i18n/defaults-nl_NL.min.js",
+      "wwwroot/Scripts/respond.js",
+      "wwwroot/Scripts/Chart.min.js"
+    ]
+  }
+]

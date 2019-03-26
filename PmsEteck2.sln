@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28621.142
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PmsEteck", "WebApp\PmsEteck.csproj", "{2E494E44-BDE3-42ED-8F89-F774BF94510E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PmsEteck.Data", "PmsEteck.Data\PmsEteck.Data.csproj", "{FD3446B9-0D38-443B-9333-DB49C43B07E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esight", "Esight\Esight.csproj", "{1DDB82F5-0A59-46DB-95C8-1FADB3E09B39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Brunata", "Brunata\Brunata.csproj", "{45270A5C-51A0-43B4-BEE9-AA52D43052A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumptionServices", "ConsumptionServices\ConsumptionServices.csproj", "{9D34D901-B3D7-4BEB-89B6-747242289856}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DownloadDocuments", "DownloadDocuments\DownloadDocuments.csproj", "{99CF4288-8189-4EFB-B880-9CE696A8229F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{E1E138FC-E39C-4035-BCBE-50F772027CF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E494E44-BDE3-42ED-8F89-F774BF94510E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E494E44-BDE3-42ED-8F89-F774BF94510E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E494E44-BDE3-42ED-8F89-F774BF94510E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E494E44-BDE3-42ED-8F89-F774BF94510E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3446B9-0D38-443B-9333-DB49C43B07E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3446B9-0D38-443B-9333-DB49C43B07E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3446B9-0D38-443B-9333-DB49C43B07E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3446B9-0D38-443B-9333-DB49C43B07E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDB82F5-0A59-46DB-95C8-1FADB3E09B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDB82F5-0A59-46DB-95C8-1FADB3E09B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDB82F5-0A59-46DB-95C8-1FADB3E09B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDB82F5-0A59-46DB-95C8-1FADB3E09B39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45270A5C-51A0-43B4-BEE9-AA52D43052A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45270A5C-51A0-43B4-BEE9-AA52D43052A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45270A5C-51A0-43B4-BEE9-AA52D43052A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45270A5C-51A0-43B4-BEE9-AA52D43052A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D34D901-B3D7-4BEB-89B6-747242289856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D34D901-B3D7-4BEB-89B6-747242289856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D34D901-B3D7-4BEB-89B6-747242289856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D34D901-B3D7-4BEB-89B6-747242289856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99CF4288-8189-4EFB-B880-9CE696A8229F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99CF4288-8189-4EFB-B880-9CE696A8229F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99CF4288-8189-4EFB-B880-9CE696A8229F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99CF4288-8189-4EFB-B880-9CE696A8229F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E138FC-E39C-4035-BCBE-50F772027CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E138FC-E39C-4035-BCBE-50F772027CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E138FC-E39C-4035-BCBE-50F772027CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E138FC-E39C-4035-BCBE-50F772027CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {679396F3-61FE-4B2D-8F9D-A03EAE99EDC4}
+	EndGlobalSection
+EndGlobal

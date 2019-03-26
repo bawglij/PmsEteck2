@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebApp.ViewModels.OperatorIndexViewModel>
+
+@{
+    ViewBag.Title = "Alle netbeheerders";
+}
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<ol class="breadcrumb">
+    <li class="active">@ViewBag.Title</li>
+</ol>
+
+<h2 class="page-header">@ViewBag.Title</h2>
+
+<form asp-action="/Index/Operators" method="get" data_pmseteck_ajax="true" data_pmseteck_target="#operatorList" class="form-inline">
+    <div class="form-group">
+        @if (User.IsInRole("OperatorsCreator"))
+        {
+            <a asp-action="Create" class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                Nieuwe netbeheerder
+            </a>
+        }
+    </div>
+    <div class="form-group pull-right">
+        <div class="input-group">
+            @Html.TextBox("searchValue", null, null, new { placeholder = "Zoeken...", @class = "form-control", autofocus = "autofocus" })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+</form>
+
+@await Html.PartialAsync("_OperatorList", Model)

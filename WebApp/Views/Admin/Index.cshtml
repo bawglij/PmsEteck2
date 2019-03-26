@@ -1,0 +1,28 @@
+﻿@model  IEnumerable<WebApp.ViewModels.AccountListViewModel>
+@{
+    ViewData["Title"] = "Alle gebruikers";
+}
+
+<h2 class="page-header">@ViewData["Title"]</h2>
+<form method="get" action="Index" data-pmseteck-ajax="true" data-pmseteck-target="#userList" class="form-inline" style="margin-bottom:15px" ;>
+    @if (User.IsInRole("UserManager"))
+    {
+        <a asp-action="Register" class="btn btn-primary">
+            <i class="fa fa-user-plus"></i>
+            Nieuwe gebruiker
+        </a>
+    }
+
+    <div class="pull-right">
+        <span class="input-group">
+            @Html.TextBox("searchValue", null, null, new { placeholder = "Zoeken...", @class = "form-control", autofocus = "autofocus" })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </span>
+    </div>
+</form>
+@await Html.PartialAsync("_UserList", Model)
+

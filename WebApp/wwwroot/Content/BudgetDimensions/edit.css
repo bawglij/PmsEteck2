@@ -1,0 +1,48 @@
+﻿.bottom-bar {
+    padding: 15px;
+    background-color: white;
+    position: sticky;
+    bottom: 50px;
+    border-top: 2px solid rgb(231, 234, 236);
+}
+
+table {
+    margin-bottom: 0px !important;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+th:first-child {
+    width: 250px;
+}
+
+td:first-child {
+    padding-top: 9px;
+}
+
+thead th {
+    position: sticky;
+    top: 51px;
+    background-color: white;
+}
+
+tr{
+    height: 41px;
+}
+
+th:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    border-bottom: 2px solid rgb(231, 234, 236);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 54px;
+    overflow: hidden;
+}

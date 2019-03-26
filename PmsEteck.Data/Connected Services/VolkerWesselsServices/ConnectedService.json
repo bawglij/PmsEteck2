@@ -1,0 +1,18 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.30201.1201",
+  "ExtendedData": {
+    "inputs": [
+      "https://ketenstandaard-svc-acc.volkerwessels.com/messageservicev31.svc"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, VolkerWesselsServices"
+    ],
+    "targetFramework": "netcoreapp3.0",
+    "typeReuseMode": "None"
+  }
+}

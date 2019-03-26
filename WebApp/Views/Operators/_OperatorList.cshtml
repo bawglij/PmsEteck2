@@ -1,0 +1,90 @@
+﻿@model X.PagedList.PagedList<WebApp.ViewModels.OperatorIndexViewModel>
+
+
+    <div id="operatorList" class="indexlist" data-pmseteck-target="#operatorList">
+        <table class="table table-striped">
+            <thead class="tableheader">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Key", "Index", new { sorting = Context.Request.Query["sorting"] == "KeyAsc" ? "KeyDesc" : "KeyAsc" })
+                        @if (Context.Request.Query["sorting"] == "KeyAsc")
+                        {<span class="fa fa-chevron-down"></span>}
+                        else if (Context.Request.Query["sorting"] == "KeyDesc")
+                        { <span class="fa fa-chevron-up"></span>}
+                    </th>
+                    <th>
+                        @Html.ActionLink("Naam", "Index", new { sorting = Context.Request.Query["sorting"] == "NameAsc" ? "NameDesc" : "NameAsc" })
+                        @if (Context.Request.Query["sorting"] == "NameAsc")
+                        {<span class="fa fa-chevron-down"></span>}
+                        else if (Context.Request.Query["sorting"] == "NameDesc")
+                        { <span class="fa fa-chevron-up"></span>}
+                    </th>
+                    <th class="text-center">
+                        @Html.ActionLink("Actief", "Index", new { sorting = Context.Request.Query["sorting"] == "ActiveAsc" ? "ActiveDesc" : "ActiveAsc" })
+                        @if (Context.Request.Query["sorting"] == "ActiveAsc")
+                        {<span class="fa fa-chevron-down"></span>}
+                        else if (Context.Request.Query["sorting"] == "ActiveDesc")
+                        { <span class="fa fa-chevron-up"></span>}
+                    </th>
+                    <th class="text-center">
+                        @Html.ActionLink("Aantal meters", "Index", new { sorting = Context.Request.Query["sorting"] == "CountAsc" ? "CountDesc" : "CountAsc" })
+                        @if (Context.Request.Query["sorting"] == "CountAsc")
+                        {<span class="fa fa-chevron-down"></span>}
+                        else if (Context.Request.Query["sorting"] == "CountDesc")
+                        { <span class="fa fa-chevron-up"></span>}
+                    </th>
+                    @if (User.IsInRole("OperatorsEditor"))
+                    {
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Operator in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => Operator.iOperatorID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => Operator.sName)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(model => Operator.bActive)
+                        </td>
+                        <td class="text-center">
+                            @if (User.IsInRole("ConsumptionMetersViewer"))
+                            {
+                                <a href="@Url.Action("ConsumptionMeters", "Operators", new { id = Operator.iOperatorID })">@Html.DisplayFor(model => Operator.iMeterCount)</a>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => Operator.iMeterCount)
+                            }
+                        </td>
+                        @if (User.IsInRole("OperatorsEditor"))
+                        {
+                            <td class="text-right">
+                                @using (Html.BeginForm("Lock", "Operators", new { id = Operator.iOperatorID }, FormMethod.Post))
+                                {
+                                    <a href="@Url.Action("Edit", new { id = Operator.iOperatorID})" class="btn btn-xs btn-warning">
+                                        <span class="fa fa-pencil"></span>
+                                    </a>
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-xs btn-@(Operator.bActive ? "danger" : "success")">
+                                        <span class="fa fa-@(Operator.bActive ? "" : "un")lock"></span>
+                                        @(Operator.bActive ? "vergrendel" : "ontgrendel")
+                                    </button>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Model.FirstItemOnPage - @Model.LastItemOnPage van @Model.TotalItemCount
+        @if (Model.PageCount > 1)
+        {
+            
+        }
+    </div>
