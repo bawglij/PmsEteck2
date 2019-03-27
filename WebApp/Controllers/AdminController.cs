@@ -153,34 +153,36 @@ namespace WebApp.Controllers
             if (string.IsNullOrEmpty(id))
                 ModelState.AddModelError(string.Empty, "Geen geldige aanvraag.");
 
-            ApplicationUser user = await _context.Users.Include(u => u.RoleGroups.Select(s => s.RoleGroup.Roles)).FirstOrDefaultAsync(f => f.Id == id);
+            ApplicationUser user = await _context.Users.Include(u => u.RoleGroups).ThenInclude(x => x.RoleGroup).FirstOrDefaultAsync(f => f.Id == id);
             
             if (user == null)
                 ModelState.AddModelError(string.Empty, "De ingestuurde gebruiker kan niet gevonden worden");
 
             if (ModelState.IsValid)
             {
-                IQueryable<RoleGroup> roleGroupList = _context.RoleGroups.Include(i => i.Roles).AsQueryable();
+                IQueryable<RoleGroup> roleGroupList = _context.RoleGroups.Include(i => i.Roles).ThenInclude(a => a.ApplicationRole).AsQueryable();
 
                 if (model.SelectedGroups != null)
                 {
+                    var test = model.SelectedGroups;
                     var selectedRoleGroups = roleGroupList.Where(w => model.SelectedGroups.Contains(w.Name));
                     HashSet<int> selectedRoleIds = new HashSet<int>(roleGroupList.Where(w => model.SelectedGroups.Contains(w.Name)).Select(s => s.Id));
                     var userRoleGroups = user.RoleGroups;
                     HashSet<int> userRoleGroupIds = new HashSet<int>(user.RoleGroups.Select(s => s.RoleGroup.Id));
 
-                    HashSet<string> roleNameList = new HashSet<string>(user.RoleGroups.SelectMany(sm => sm.RoleGroup.Roles).Select(s => s.RoleGroup.Name));
+                    HashSet<string> roleNameList = new HashSet<string>(await _context.ApplicationUserRoleGroup.Where(c => c.UserId == user.Id).Select(c => c.RoleGroup.Name).ToListAsync());
+                        //user.RoleGroups.SelectMany(sm => sm.RoleGroup.Roles).Select(s => s.RoleGroup.Name));
 
                     // What to do with new selected rolegroups
                     foreach (var roleGroup in selectedRoleGroups.Where(w => !userRoleGroupIds.Contains(w.Id)).ToList())
                     {
                         bool roleGroupHasError = false;
-                        foreach (var role in roleGroup.Roles)
+                        foreach (var applicationRole in roleGroup.Roles)
                         {
                             // Check of user is in role
-                            if (!await _userManager.IsInRoleAsync(user, role.RoleGroup.Name))
+                            if (!await _userManager.IsInRoleAsync(user, applicationRole.ApplicationRole.Name))
                             {
-                                var addUserTolRoleResult = await _userManager.AddToRoleAsync(user, role.RoleGroup.Name);
+                                var addUserTolRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.ApplicationRole.Name);
                                 if (!addUserTolRoleResult.Succeeded)
                                 {
                                     roleGroupHasError = true;
@@ -200,12 +202,12 @@ namespace WebApp.Controllers
                     {
                         bool roleGroupHasError = false;
                         // Removed RoleGroups
-                        foreach (var role in roleGroup.RoleGroup.Roles)
+                        foreach (var role in roleGroup.RoleGroup.Users)
                         {
                             if (await _userManager.IsInRoleAsync(user, role.RoleGroup.Name))
                             {
                                 // Check of de rol vanuit andere rolgroep ook gebruikt wordt
-                                HashSet<string> selectedRoles = new HashSet<string>(selectedRoleGroups.SelectMany(sm => sm.Roles).Select(s => s.RoleGroup.Name));
+                                HashSet<string> selectedRoles = new HashSet<string>(selectedRoleGroups.SelectMany(sm => sm.Users).Select(s => s.RoleGroup.Name));
 
                                 if (!selectedRoles.Any(u => u == role.RoleGroup.Name))
                                 {
@@ -279,7 +281,7 @@ namespace WebApp.Controllers
                 Name = user.FullName,
                 EmailConfirmed = user.EmailConfirmed,
                 //UserGroups = user.UserGroups.Select(s => s.UserGroup.Name).ToArray(),
-                RoleGroups = await _userManager.GetRolesAsync(user),
+                RoleGroups = await _context.ApplicationUserRoleGroup.Where(c => c.UserId == user.Id).Select(c => c.RoleGroup.Name).ToListAsync(),
                 UserLocked = user.IsLocked.HasValue && user.IsLocked.Value
             };
             return View(model);

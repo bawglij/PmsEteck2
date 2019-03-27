@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace PmsEteck.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190322073941_initial")]
+    [Migration("20190327065256_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -4632,21 +4632,15 @@ namespace PmsEteck.Migrations
 
             modelBuilder.Entity("PmsEteck.Data.Models.Results.ApplicationRoleGroup", b =>
                 {
-                    b.Property<int>("RoleId");
+                    b.Property<string>("RoleId");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("RoleGroupId");
 
-                    b.Property<string>("ApplicationRoleId");
-
-                    b.Property<int?>("RoleGroupId");
-
-                    b.HasKey("RoleId", "UserId");
-
-                    b.HasIndex("ApplicationRoleId");
+                    b.HasKey("RoleId", "RoleGroupId");
 
                     b.HasIndex("RoleGroupId");
 
-                    b.ToTable("ApplicationRoleGroup");
+                    b.ToTable("AspNetUserRolegroupRoles","pms");
                 });
 
             modelBuilder.Entity("PmsEteck.Data.Models.RoleGroup", b =>
@@ -7115,13 +7109,15 @@ namespace PmsEteck.Migrations
 
             modelBuilder.Entity("PmsEteck.Data.Models.Results.ApplicationRoleGroup", b =>
                 {
-                    b.HasOne("PmsEteck.Data.Models.ApplicationRole", "ApplicationRole")
-                        .WithMany("RoleGroups")
-                        .HasForeignKey("ApplicationRoleId");
-
                     b.HasOne("PmsEteck.Data.Models.RoleGroup", "RoleGroup")
                         .WithMany("Roles")
-                        .HasForeignKey("RoleGroupId");
+                        .HasForeignKey("RoleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PmsEteck.Data.Models.ApplicationRole", "ApplicationRole")
+                        .WithMany("RoleGroups")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PmsEteck.Data.Models.Rubric", b =>

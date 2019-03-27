@@ -1805,35 +1805,6 @@ namespace PmsEteck.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApplicationRoleGroup",
-                schema: "pms",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false),
-                    ApplicationRoleId = table.Column<string>(nullable: true),
-                    RoleGroupId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationRoleGroup", x => new { x.RoleId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_ApplicationRoleGroup_AspNetRoles_ApplicationRoleId",
-                        column: x => x.ApplicationRoleId,
-                        principalSchema: "pms",
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ApplicationRoleGroup_AspNetRoleGroups_RoleGroupId",
-                        column: x => x.RoleGroupId,
-                        principalSchema: "pms",
-                        principalTable: "AspNetRoleGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 schema: "pms",
                 columns: table => new
@@ -1849,6 +1820,33 @@ namespace PmsEteck.Migrations
                     table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "pms",
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRolegroupRoles",
+                schema: "pms",
+                columns: table => new
+                {
+                    RoleId = table.Column<string>(nullable: false),
+                    RoleGroupId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRolegroupRoles", x => new { x.RoleId, x.RoleGroupId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRolegroupRoles_AspNetRoleGroups_RoleGroupId",
+                        column: x => x.RoleGroupId,
+                        principalSchema: "pms",
+                        principalTable: "AspNetRoleGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRolegroupRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalSchema: "pms",
                         principalTable: "AspNetRoles",
@@ -6510,18 +6508,6 @@ namespace PmsEteck.Migrations
                 column: "iRateCardKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApplicationRoleGroup_ApplicationRoleId",
-                schema: "pms",
-                table: "ApplicationRoleGroup",
-                column: "ApplicationRoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationRoleGroup_RoleGroupId",
-                schema: "pms",
-                table: "ApplicationRoleGroup",
-                column: "RoleGroupId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserGroup_ApplicationUserId",
                 schema: "pms",
                 table: "ApplicationUserGroup",
@@ -6558,6 +6544,12 @@ namespace PmsEteck.Migrations
                 schema: "pms",
                 table: "AspNetUserLogins",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRolegroupRoles_RoleGroupId",
+                schema: "pms",
+                table: "AspNetUserRolegroupRoles",
+                column: "RoleGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoleGroups_UserId",
@@ -7499,10 +7491,6 @@ namespace PmsEteck.Migrations
                 schema: "pms");
 
             migrationBuilder.DropTable(
-                name: "ApplicationRoleGroup",
-                schema: "pms");
-
-            migrationBuilder.DropTable(
                 name: "ApplicationUserGroup",
                 schema: "pms");
 
@@ -7516,6 +7504,10 @@ namespace PmsEteck.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserLogins",
+                schema: "pms");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRolegroupRoles",
                 schema: "pms");
 
             migrationBuilder.DropTable(

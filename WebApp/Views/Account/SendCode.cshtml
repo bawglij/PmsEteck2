@@ -8,20 +8,18 @@
 <div class="row">
     <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-6 col-md-offset-3 col-md-4">
         <h2>Project Management Systeem</h2>
-        @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post))
-        {
+        <form asp-action="SendCode" asp-controller="Account" asp-route-return="@Model.ReturnUrl" method="post" asp-antiforgery="true">
             <h4>@ViewBag.Title</h4>
-            @Html.AntiForgeryToken()
-            @Html.Hidden("rememberMe", @Model.RememberMe)
+            <input type="hidden" asp-for="RememberMe" />
             <hr />
             <div class="form-group">
-                @Html.LabelFor(model => model.SelectedProvider, htmlAttributes: new { @class = "sr-only" })
-                @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers, new { @class = "form-control selectpicker", data_live_search = "true" })
+                <label asp-for="SelectedProvider" class="sr-only"></label>
+                <select asp-for="SelectedProvider" asp-items="Model.Providers" class="form-control selectpicker" data_live_search = "true" ></select>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-block btn-primary">Verstuur code</button>
             </div>
-        }
+        </form>
     </div>
 </div>
 

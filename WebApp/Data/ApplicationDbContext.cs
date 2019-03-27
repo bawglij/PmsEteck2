@@ -73,7 +73,7 @@ namespace WebApp.Data
             modelBuilder.Entity<BudgetDimensionRule>().Property(x => x.PercentNovember).HasColumnType("decimal(18, 5)");
             modelBuilder.Entity<BudgetDimensionRule>().Property(x => x.PercentDecember).HasColumnType("decimal(18, 5)");
 
-            modelBuilder.Entity<ApplicationRoleGroup>().HasKey(t => new { t.RoleId, t.UserId });
+            modelBuilder.Entity<ApplicationRoleGroup>().HasKey(t => new { t.RoleId, t.RoleGroupId });
             modelBuilder.Entity<ApplicationUserRoleGroup>().HasKey(t => new { t.RoleGroupId, t.UserId });
             modelBuilder.Entity<ApplicationUserGroup>().HasKey(t => new { t.UserId, t.GroupId }); modelBuilder.Entity<AddressRateCard>().HasKey(t => new { t.iAddressKey, t.iRateCardKey });
             modelBuilder.Entity<TicketLabel>().HasKey(t => new { t.TicketId, t.LabelId });
@@ -98,6 +98,9 @@ namespace WebApp.Data
 
             modelBuilder.Entity<ApplicationUserRoleGroup>().HasOne(m => m.ApplicationUser).WithMany(c => c.RoleGroups).HasForeignKey(bc => bc.UserId);
             modelBuilder.Entity<ApplicationUserRoleGroup>().HasOne(m => m.RoleGroup).WithMany(c => c.Users).HasForeignKey(cb => cb.RoleGroupId);
+
+            modelBuilder.Entity<ApplicationRoleGroup>().HasOne(m => m.ApplicationRole).WithMany(c => c.RoleGroups).HasForeignKey(cb => cb.RoleId);
+            modelBuilder.Entity<ApplicationRoleGroup>().HasOne(m => m.RoleGroup).WithMany(c => c.Roles).HasForeignKey(cb => cb.RoleGroupId);
 
             base.OnModelCreating(modelBuilder);
 
@@ -288,5 +291,6 @@ namespace WebApp.Data
 
         //UserRoles
         public DbSet<ApplicationUserRoleGroup> ApplicationUserRoleGroup { get; set; }
+        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
     }
 }

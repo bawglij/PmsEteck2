@@ -2,12 +2,8 @@
 @{
     ViewBag.Title = "Beheer gebruikersgroepen";
 }
-
 <h2 class="page-header">@ViewBag.Title</h2>
-
-
-<form>
-    @Html.AntiForgeryToken()
+<form asp-antiforgery="true">
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
