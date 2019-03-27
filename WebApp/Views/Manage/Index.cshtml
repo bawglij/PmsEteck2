@@ -1,5 +1,4 @@
-﻿@model Index
-@{
+﻿@{
     ViewBag.Title = "Mijn profiel";
 }
 
@@ -7,9 +6,8 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 
-
 <div class="row">
     <div class="col-sm-6 col-md-4">
-        @await Html.PartialAsync("_UserProfile")
+        <partial name="_UserProfile" />
     </div>
 </div>

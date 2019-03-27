@@ -6,26 +6,24 @@
 
 <h2 class="page-header">@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Register", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+<form method="post" asp-action="Register" asp-controller="Admin" class="form-horizontal" role="form" asp-antiforgery="true">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+        <label asp-for="Email" class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            <input asp-for="Email" type="email" class="form-control" />
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.sFirstName, new { @class = "col-md-4 control-label" })
+        <label asp-for="sFirstName" class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            @Html.TextBoxFor(m => m.sFirstName, new { @class = "form-control" })
+            <input type="text" asp-for="sFirstName" class="form-control" />
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.sLastName, new { @class = "col-md-4 control-label" })
+        <label asp-for="sLastName" class="col-md-4 control-label"></label>
         <div class="col-md-8">
-            @Html.TextBoxFor(m => m.sLastName, new { @class = "form-control" })
+            <input type="text" asp-for="sLastName" class="form-control" />
         </div>
     </div>
     <div class="form-group">
@@ -38,14 +36,14 @@
         </div>
     </div>
     <div class="form-group fade collapse @(Model.IsMaintenanceContact ? "in" : "")" id="collapse_@Html.IdFor(model=> model.IsMaintenanceContact)">
-        @Html.LabelFor(m => m.MaintenanceContactID, new { @class = "col-md-4 control-label" })
+        <label asp-for="MaintenanceContactID" class="col-md-4 control-label"></label>
         <div class="col-md-8">
             @Html.DropDownListFor(m => m.MaintenanceContactID, Model.MaintenanceContactList, string.Empty, new { @class = "form-control selectpicker", data_live_search = "true" })
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-4">
-            <a href="@Url.Action("Index")" class="btn btn-default">
+            <a asp-action="Index" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>
                 Vorige
             </a>
@@ -57,4 +55,4 @@
             </button>
         </div>
     </div>
-}
+</form>
