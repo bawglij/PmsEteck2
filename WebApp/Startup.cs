@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using PmsEteck;
 using PmsEteck.Helpers;
 using PmsEteck.Data.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp
 {
@@ -79,10 +79,10 @@ namespace WebApp
 
             app.UseRouting(routes =>
             {
-                //routes.MapApplication();
                 routes.MapControllerRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRazorPages();
             });
 
             app.UseCookiePolicy();
