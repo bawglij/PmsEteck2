@@ -148,36 +148,6 @@ namespace WebApp.Controllers
             return View(model);
         }
 
-
-        // GET: Operators/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var @operator = await _context.Operators
-                .FirstOrDefaultAsync(m => m.iOperatorID == id);
-            if (@operator == null)
-            {
-                return NotFound();
-            }
-
-            return View(@operator);
-        }
-
-        // POST: Operators/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var @operator = await _context.Operators.FindAsync(id);
-            _context.Operators.Remove(@operator);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool OperatorExists(int id)
         {
             return _context.Operators.Any(e => e.iOperatorID == id);

@@ -10,8 +10,8 @@ using WebApp.Data;
 namespace PmsEteck.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190327065256_initial")]
-    partial class initial
+    [Migration("20190327123853_initial1")]
+    partial class initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

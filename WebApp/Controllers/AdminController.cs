@@ -192,8 +192,12 @@ namespace WebApp.Controllers
 
                         }
                         if (!roleGroupHasError)
-                            await _userManager.AddToRoleAsync(user, roleGroup.Name);
-                        // user.RoleGroups.Add(roleGroup); --standard
+                        {
+                            //await _userManager.AddToRoleAsync(user, roleGroup.Name);
+                            //user.RoleGroups.Add(roleGroup); --standard
+                            ApplicationUserRoleGroup est = await _context.ApplicationUserRoleGroup.Where(s => s.RoleGroupId == roleGroup.Id).FirstOrDefaultAsync();
+                            user.RoleGroups.Add(est);
+                        }
                         // Voeg de rolgroep aan de gebruiker toe
                     }
 

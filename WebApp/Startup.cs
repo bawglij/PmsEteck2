@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using PmsEteck.Data.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using PmsEteck;
 using PmsEteck.Helpers;
 using PmsEteck.Data.Services;
 
@@ -42,17 +39,8 @@ namespace WebApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.AddTransient<IEmailSender, sendEmail>();
 
-            //services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddTokenProvider<DuoWebTokenProvider>("Duo Web").AddDefaultTokenProviders();
-            /*
-            services.AddIdentity<ApplicationUser, IdentityRole>(
-                options =>
-                {
-                    options.Tokens.ProviderMap.Add
-                }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-                //AddTokenProvider<DuoWebTokenProvider>("Duo Web");
-                */
-            
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc()
                 .AddNewtonsoftJson();
@@ -86,7 +74,6 @@ namespace WebApp
             });
 
             app.UseCookiePolicy();
-            //app.UseIdentity();
             app.UseAuthentication();
             app.UseAuthorization();
         }
